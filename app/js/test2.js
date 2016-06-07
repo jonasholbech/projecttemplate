@@ -3,3 +3,10 @@ function hello(x){
         test()
     }
 }
+
+var Game = {
+    something:"else",
+    what: function what(){
+        this.something='nothing';
+    }
+};

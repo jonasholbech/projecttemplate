@@ -1,0 +1,9 @@
+$primaryColor: #F0F;
+body {
+  color: $primaryColor;
+}
+div {
+  border: 2px solid $primaryColor;
+  stuff:variable;
+}
+

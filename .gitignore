@@ -1,0 +1,5 @@
+.DS_Store
+.idea/
+www/
+Documentation/
+node_modules/

@@ -35,6 +35,13 @@ var browserSync = require('browser-sync').create();
 
 gulp.task('html', function () {
     return gulp.src('app/*.html')
+        //.pipe(removeHtmlComments())
+        //.pipe(htmlmin({collapseWhitespace: true}))
+        .pipe(gulp.dest('www'));
+});
+
+gulp.task('htmlBuild', function () {
+    return gulp.src('app/*.html')
         .pipe(removeHtmlComments())
         .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('www'));
@@ -46,12 +53,37 @@ gulp.task('css', function () {
         .pipe(sass())
         .pipe(csslint())
         .pipe(csslint.reporter())
+        //.pipe(cleanCSS())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('www/css'));
+});
+
+gulp.task('cssBuild', function () {
+    return gulp.src('app/sass/*.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(csslint())
+        .pipe(csslint.reporter())
         .pipe(cleanCSS())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('www/css'));
 });
 
 gulp.task('js', function(){
+    return gulp.src('app/js/*.js')
+        .pipe(closureCompiler({
+            compilation_level: 'SIMPLE',
+            warning_level: 'VERBOSE',
+            language_in: 'ECMASCRIPT6_STRICT',
+            language_out: 'ECMASCRIPT5_STRICT',
+            output_wrapper: '(function(){\n%output%\n}).call(this)',
+            js_output_file: 'app.min.js'
+        }))
+
+        .pipe(gulp.dest('www/js/'));
+});
+
+gulp.task('jsBuild', function(){
     return gulp.src('app/js/*.js')
         .pipe(stripDebug())
         .pipe(replace('void 0;', ''))

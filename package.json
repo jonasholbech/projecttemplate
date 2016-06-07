@@ -1,13 +1,21 @@
 {
   "name": "perfectproject",
   "version": "1.0.0",
-  "description": "",
-  "main": "gulpfile.js",
+  "description": "Just a small repo for setting up new web-projects",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonasholbech/projecttemplate.git"
+  },
+  "author": "jonasholbech",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonasholbech/projecttemplate/issues"
+  },
+  "homepage": "https://github.com/jonasholbech/projecttemplate#readme"
   "devDependencies": {
     "browser-sync": "^2.12.10",
     "google-closure-compiler": "^20160517.1.0",

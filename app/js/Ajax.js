@@ -17,7 +17,7 @@ var Ajax = {
         xobj.send(s.join('&'));
         console.log(s.join('&'));
     },
-    get:function (path, callback) {//TODO am I using this?
+    get:function (path, callback) {
         var xobj = new XMLHttpRequest();
         xobj.open('GET', path, true);
         xobj.onreadystatechange = function () {
@@ -32,7 +32,6 @@ var Ajax = {
         xobj.overrideMimeType("application/json");
         xobj.open('GET', path, true);
         xobj.onreadystatechange = function () {
-            //console.log(xobj)
             if (xobj.readyState == 4 && xobj.status == "200") {
                 callback(xobj.responseText);
             }

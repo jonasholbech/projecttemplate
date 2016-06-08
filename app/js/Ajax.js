@@ -33,7 +33,7 @@ var Ajax = {
         xobj.open('GET', path, true);
         xobj.onreadystatechange = function () {
             if (xobj.readyState == 4 && xobj.status == "200") {
-                callback(xobj.responseText);
+                callback(JSON.parse(xobj.responseText));
             }
         };
         xobj.send(null);

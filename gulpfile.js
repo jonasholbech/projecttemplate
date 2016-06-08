@@ -35,9 +35,21 @@ var uglify = require('gulp-uglify');
 //npm install --save-dev gulp-gh-pages
 var ghPages = require('gulp-gh-pages');
 
+//npm install -save-dev syncy
+var syncy = require('syncy');
+
+gulp.task('sync', function() {
+    syncy(['app/js/lib/**'], 'www/js/lib/', {updateAndDelete:true})
+.on('error', console.error)
+    .end();
+});
+
 gulp.task('deploy', function() {
     return gulp.src('www/**/*')
-        .pipe(ghPages());
+        .pipe(ghPages({
+            remoteUrl:'https://github.com/jonasholbech/projecttemplate.git',
+            force:true
+        }));
 });
 var browserSync = require('browser-sync').create();
 

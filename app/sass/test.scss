@@ -63,12 +63,16 @@ body {
   }
 }
 
+.checkCircleExtender {
+  animation: fill-to-white 5000ms;
+  fill: white;
+  opacity: 0;
+}
 @for $i from 0 through 20 {
   #loadingCheckCircleSVG-#{$i} {
-    animation: fill-to-white 5000ms;
+    @extend .checkCircleExtender;
     animation-delay: ($i - 1.5) * 1s;
-    fill: white;
-    opacity: 0;
+
   }
 }
 @keyframes fill-to-white {
@@ -82,9 +86,12 @@ body {
     opacity: 1;
   }
 }
+.checkSVGExtender {
+  animation: fill-to-coral 5000ms;
+}
 @for $i from 0 through 20 {
   #loadingCheckSVG-#{$i} {
-    animation: fill-to-coral 5000ms;
+    @extend .checkSVGExtender;
     animation-delay: ($i - 1.5) * 1s;
   }
 }

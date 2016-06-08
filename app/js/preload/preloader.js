@@ -96,8 +96,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 function preload(){
     [
-        '//other-domain.com/1.js',
-        '2.js'
+        'js/Ajax.js'
     ].forEach(function(src) {
         var script = document.createElement('script');
         script.src = src;

@@ -29,9 +29,10 @@ var jshint = require('gulp-jshint');
 //npm install --save-dev plato
 var plato = require('plato');
 
+//npm install --save-dev gulp-uglify
 
 var browserSync = require('browser-sync').create();
-
+var uglify = require('gulp-uglify');
 
 gulp.task('html', function () {
     return gulp.src('app/*.html')
@@ -68,8 +69,31 @@ gulp.task('cssBuild', function () {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('www/css'));
 });
+gulp.task('jsPreload', function() {
+    return gulp.src('app/js/preload/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('www/js/'));
+});
+gulp.task('jsMain', function() {
+    return gulp.src('app/js/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('www/js/'));
+});
+/*
+gulp.task('jsPreload', function(){
+    return gulp.src('app/js/preload/*.js')
+        .pipe(closureCompiler({
+            compilation_level: 'SIMPLE',
+            warning_level: 'VERBOSE',
+            language_in: 'ECMASCRIPT6_STRICT',
+            language_out: 'ECMASCRIPT5_STRICT',
+            output_wrapper: '(function(){\n%output%\n}).call(this)',
+            js_output_file: 'preload.min.js'
+        }))
 
-gulp.task('js', function(){
+        .pipe(gulp.dest('www/js/'));
+});
+gulp.task('jsMain', function(){
     return gulp.src('app/js/*.js')
         .pipe(closureCompiler({
             compilation_level: 'SIMPLE',
@@ -81,8 +105,8 @@ gulp.task('js', function(){
         }))
 
         .pipe(gulp.dest('www/js/'));
-});
-
+});*/
+/*
 gulp.task('jsBuild', function(){
     return gulp.src('app/js/*.js')
         .pipe(stripDebug())
@@ -98,7 +122,7 @@ gulp.task('jsBuild', function(){
 
         .pipe(gulp.dest('www/js/'));
 });
-
+*/
 //TODO use options from package
 //gulp debug > Ressources/automation/jshint.txt
 gulp.task('debug', function(){
@@ -118,7 +142,7 @@ gulp.task('documentation', function(){
 gulp.task("watch", function() {
     gulp.watch('app/*.html', ['html']);
     gulp.watch('app/sass/*.scss', ['css'])
-    gulp.watch('app/js/*.js', ['js'])
+    gulp.watch('app/js/**/*.js', ['jsMain', 'jsPreload'])
 });
 
 var reload      = browserSync.reload;

@@ -9,7 +9,6 @@ var Ajax = {
                 s.push(prop + "=" + dataObj[prop]);
             }
         }
-
         xobj.onreadystatechange = function () {
             if (xobj.readyState == 4 && xobj.status == "200") {
                 callback(xobj.responseText);

@@ -30,9 +30,17 @@ var jshint = require('gulp-jshint');
 var plato = require('plato');
 
 //npm install --save-dev gulp-uglify
-
-var browserSync = require('browser-sync').create();
 var uglify = require('gulp-uglify');
+
+//npm install --save-dev gulp-gh-pages
+var ghPages = require('gulp-gh-pages');
+
+gulp.task('deploy', function() {
+    return gulp.src('www/**/*')
+        .pipe(ghPages());
+});
+var browserSync = require('browser-sync').create();
+
 
 gulp.task('html', function () {
     return gulp.src('app/*.html')

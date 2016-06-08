@@ -70,7 +70,7 @@ function addPhrasesToDocument(phrases) {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    console.log("DCL");
+    console.log("DOMContentLoaded event");
     var phrases = shuffleArray(
         [
             "Calibrating Framesets",
@@ -82,22 +82,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
             "Shuffling bits",
             "Celebrating moments",
             "Generating phrases",
-            "Simulating workflow", "Empowering humanity", "Being aspirational", "Doing the hokey pokey", "Bueller", "Cracking jokes", "Slacking off"]);
+            "Simulating workflow",
+            "Empowering humanity",
+            "Being aspirational",
+            "Doing the hokey pokey",
+            "Bueller",
+            "Cracking jokes",
+            "Slacking off"]);
 
     addPhrasesToDocument(phrases);
+    preload();
 });
 
+function preload(){
+    [
+        '//other-domain.com/1.js',
+        '2.js'
+    ].forEach(function(src) {
+        var script = document.createElement('script');
+        script.src = src;
+        document.head.appendChild(script);
+    });
+}
 function cleanUp(){
     preloader.classList.add('die');
     preloader.addEventListener('transitionend', function(e){
-        console.log("TE")
-        console.log(preloader)
         document.body.removeChild(preloader)
         document.getElementById('page').classList.add('active')
     })
 
 }
 window.addEventListener('load', function(){
+    console.log("load event");
     var diff = Date.now()-startTime;
     console.log(diff);
     if(diff>minDuration){
@@ -107,3 +123,17 @@ window.addEventListener('load', function(){
     }
 
 });
+//var p;
+
+/**
+ * This is a function where type checking is disabled.
+ * @suppress {checkVars, undefinedVars,undefinedNames,missingProperties}
+ */
+/*
+function preload(){
+    p = new createjs.LoadQueue(true);
+    p.loadManifest(['http://lorempixel.com/400/200/sports']);
+    p.addEventListener('complete', function(e){
+        console.log("createjs preloader done");
+    });
+}*/

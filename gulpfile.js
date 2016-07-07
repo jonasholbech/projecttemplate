@@ -12,6 +12,13 @@ var cleanCSS = require('gulp-clean-css');
 var csslint = require('gulp-csslint');
 //npm install --save-dev gulp-sass
 var sass = require('gulp-sass');
+//npm install gulp-uncss --save-dev
+//https://github.com/giakki/uncss#within-nodejs
+var uncss = require('gulp-uncss');
+
+//prefix css
+//npm install --save-dev gulp-autoprefixer
+var autoprefixer = require('gulp-autoprefixer');
 
 //npm install --save-dev gulp-strip-debug
 //strip debug leaves "void 0" where it removes something, uglify should remove it
@@ -68,24 +75,37 @@ gulp.task('htmlBuild', function () {
         .pipe(gulp.dest('www'));
 });
 
+
 gulp.task('css', function () {
     return gulp.src('app/sass/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(csslint())
         .pipe(csslint.reporter())
-        //.pipe(cleanCSS())
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions']
+        }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('www/css'));
 });
 
 gulp.task('cssBuild', function () {
+
+    var files = ['app/index.html'];
+    var options = {report:true};
     return gulp.src('app/sass/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass())
-        .pipe(csslint())
-        .pipe(csslint.reporter())
+        //ap must cone before uncss
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions']
+        }))
+        .pipe(uncss(
+            {html: ['app/index.html']//, 'posts/**/*.html', 'http://example.com'
+            }))
         .pipe(cleanCSS())
+
+
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('www/css'));
 });

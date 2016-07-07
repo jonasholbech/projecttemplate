@@ -1,6 +1,9 @@
 $gold: #FFB900;
 $coral: #FC636B;
 $brightCoral: #FF6D92;
+.unused {
+  color:black;
+}
 body {
   $opacity: 90%;
   color: #FFF;
@@ -10,6 +13,9 @@ body {
                   mix(black, white, $opacity) 10%,
                   mix(black, white, $opacity) 65%,
                   mix(black, white, $opacity) 125%);
+}
+.something {
+  display:flex;
 }
 #page {
   opacity:0;
